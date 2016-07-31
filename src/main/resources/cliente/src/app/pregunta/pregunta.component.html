@@ -1,0 +1,14 @@
+<md-card>
+  <md-card-title>{{pregunta.enunciado}}</md-card-title>
+  <md-card-subtitle>{{pregunta.bloque}}</md-card-subtitle>
+  <md-card-content>
+    <md-radio-group [(ngModel)]="solucion">
+      <p *ngFor="let opcion of pregunta.opciones" [class.mal]="opcion.estado=='M'" [class.bien]="opcion.estado=='B'">
+        <md-radio-button  [value]="opcion.apartado" >{{opcion.apartado}}) {{opcion.solucion}}</md-radio-button>
+      </p>
+      </md-radio-group>
+  </md-card-content>
+  <md-card-actions layout="row" layout-align="end center">
+    <button md-button (click)="corregir()">Corregir</button>
+  </md-card-actions>
+</md-card>
