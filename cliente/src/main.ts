@@ -12,9 +12,14 @@ import { enableProdMode } from '@angular/core';
 import { AppComponent, environment } from './app/';
 import {disableDeprecatedForms, provideForms} from '@angular/forms'; 
 import {HTTP_PROVIDERS,JSONP_PROVIDERS} from '@angular/http';
+import { OVERLAY_PROVIDERS } from '@angular2-material/core';
+import {appRouterProviders} from './app/app.routes'
+
 
 if (environment.production) {
   enableProdMode();
 }
 
-bootstrap(AppComponent,[disableDeprecatedForms(),provideForms(),HTTP_PROVIDERS,JSONP_PROVIDERS]);
+bootstrap(AppComponent,[disableDeprecatedForms(),provideForms()
+,HTTP_PROVIDERS,JSONP_PROVIDERS,OVERLAY_PROVIDERS
+,appRouterProviders]);

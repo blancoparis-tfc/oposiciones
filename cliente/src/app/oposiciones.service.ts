@@ -7,14 +7,14 @@ import {Pregunta} from './pregunta/pregunta'
 export class OposicionesService {
   private  testUrl='http://192.168.1.45:8080/test?anio=2014';
 
-  private testUrlMock='preguntas.json';
+  private testUrlMock='preguntas2014.json';
 
   constructor(private http: Http) { }
 
-  public getTest():Observable<Pregunta[]>{
+  public getTest(anio:string):Observable<Pregunta[]>{
     /*let parametros = new URLSearchParams();
     parametros.set('format')*/
-  return this.http.get(this.testUrlMock)
+  return this.http.get('preguntas'+anio+'.json')
                     .map(this.extractData)
                     .catch(this.handleError);
   }

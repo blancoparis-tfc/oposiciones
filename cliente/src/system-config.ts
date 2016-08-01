@@ -24,7 +24,10 @@ const materialPkgs:string[] = [
 'card',
 'checkbox',
 'radio',
-'toolbar'
+'toolbar',
+'icon',
+'menu',
+'list'
 ];
 
 materialPkgs.forEach((pkg) => {
@@ -54,6 +57,7 @@ const barrels: string[] = [
   'app/shared',
   'app/pregunta',
   'app/preguntas-oposicion',
+  'app/cuestionario',
   /** @cli-barrel */
 ];
 
