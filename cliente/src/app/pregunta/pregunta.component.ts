@@ -31,12 +31,4 @@ export class PreguntaComponent implements OnInit {
     opcionCorrecta.estado=opcionCorrecta.apartado==this.solucion?'B':'M';    
   }
 
- /* private opcionesMock(){
-    let opciones = new Array<Opcion>();
-    opciones.push(new Opcion("a","Es la solución (a)",false));
-    opciones.push(new Opcion("b","Es la solución (b)",false));
-    opciones.push(new Opcion("c","Es la solución (c)",true));
-    opciones.push(new Opcion("d","Es la solución (d)",false));
-    return opciones;
-  }*/
 }

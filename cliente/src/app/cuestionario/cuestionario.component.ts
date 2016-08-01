@@ -12,7 +12,14 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 })
 export class CuestionarioComponent implements OnInit {
 
-  constructor() { }
+  private anios:Array<String>;
+
+  constructor() {
+    this.anios=new Array<String>();
+    this.anios.push("2014");
+    this.anios.push("2013");
+    this.anios.push("2011");
+   }
 
   ngOnInit() {
   }
