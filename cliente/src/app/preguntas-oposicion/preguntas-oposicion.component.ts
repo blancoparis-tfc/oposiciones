@@ -2,21 +2,26 @@ import { Component, OnInit,Input } from '@angular/core'
 import {MD_TOOLBAR_DIRECTIVES} from '@angular2-material/toolbar'
 import {PreguntaComponent} from '../pregunta/pregunta.component'
 import {Pregunta,Opcion} from '../pregunta/pregunta'
+import {OposicionesService} from '../oposiciones.service'
 @Component({
   moduleId: module.id,
   selector: 'app-preguntas-oposicion',
   templateUrl: 'preguntas-oposicion.component.html',
   styleUrls: ['preguntas-oposicion.component.css'],
+  providers:[OposicionesService],
     directives:[MD_TOOLBAR_DIRECTIVES,PreguntaComponent]
 })
 export class PreguntasOposicionComponent implements OnInit {
 
     preguntas:Array<Pregunta>
 
-  constructor() { }
+  constructor(
+    private oposicionesService:OposicionesService
+    ) { }
 
   ngOnInit() {
-    this.preguntas=this.preguntasMock()
+    //this.preguntas=this.preguntasMock()
+    this.oposicionesService.getTest().subscribe(data=>this.preguntas=data);
   }
   private preguntasMock(){
     let preguntas= new Array<Pregunta>()

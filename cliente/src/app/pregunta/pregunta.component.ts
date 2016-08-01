@@ -5,6 +5,7 @@ import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
 import {MD_RADIO_DIRECTIVES} from '@angular2-material/radio';
 import {Opcion,Pregunta} from './pregunta';
 
+
 @Component({
   moduleId: module.id,
   selector: 'app-pregunta',

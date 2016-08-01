@@ -7,7 +7,7 @@ import { PreguntasOposicionComponent } from './preguntas-oposicion.component';
 
 describe('Component: PreguntasOposicion', () => {
   it('should create an instance', () => {
-    let component = new PreguntasOposicionComponent();
+    let component = new PreguntasOposicionComponent(null);
     expect(component).toBeTruthy();
   });
 });
