@@ -135,7 +135,7 @@ private fun organizarSoluciones(cadena: String):ArrayList<String> {
 fun cuestionario(cadena:String):List<Pregunta>{
     val valdev=ArrayList<Pregunta>()
     val lineas = cadena.lines().filter { !it.isBlank() }
-            .map{ it.replace(patronPagina,"").trim()}
+            .map{ it.replace(patronPagina,"").trim()+" "}
             //.filter { !patronPagina.containsMatchIn(it) }
             .toList()
     var pregunta=Pregunta("",-1,"",false,ArrayList<Opciones>())
