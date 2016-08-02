@@ -1,5 +1,7 @@
 <md-toolbar color="primary">
   <span>Cuestionario del año {{anio}}</span>
+  <md-icon fontSet="myfont">help</md-icon>
 </md-toolbar>
+<md-progress-bar mode="buffer" [value]="avance" bufferValue="80"></md-progress-bar>
 <app-pregunta *ngFor="let pregunta of preguntas" [pregunta]="pregunta"></app-pregunta> 
 

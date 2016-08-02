@@ -27,7 +27,8 @@ const materialPkgs:string[] = [
 'toolbar',
 'icon',
 'menu',
-'list'
+'list',
+'progress-bar'
 ];
 
 materialPkgs.forEach((pkg) => {
