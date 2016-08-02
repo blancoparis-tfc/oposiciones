@@ -59,6 +59,8 @@ const barrels: string[] = [
   'app/pregunta',
   'app/preguntas-oposicion',
   'app/cuestionario',
+  'app/temario',
+  'app/tema',
   /** @cli-barrel */
 ];
 

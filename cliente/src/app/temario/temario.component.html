@@ -1,0 +1,11 @@
+<md-nav-list *ngFor="let bloque of temario">
+   <md-toolbar color="primary">
+      <span>{{bloque.bloque}}</span>
+   </md-toolbar>
+   <h3 md-subheader > Temas ({{bloque.temas.length}})</h3>
+   <md-list-item  class="md-5-line md-long-text" *ngFor="let tema of bloque.temas">
+    <div class="md-list-item-text"> 
+       <p ><a [routerLink]="['/tema',bloque.id,tema.numero]"><strong>Tema {{tema.numero}}</strong></a>   {{tema.tema}}</p>
+    </div>  
+   </md-list-item>
+</md-nav-list>

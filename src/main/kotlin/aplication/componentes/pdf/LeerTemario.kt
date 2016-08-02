@@ -11,6 +11,10 @@ data class Temario(var numero:String="",var tema:String="", var apartados:List<S
 
 val patroBloque = Regex("B[lL][oO][Qq][uU][eE][sS]? [IV]+")
 val patronTema = Regex("\\d+\\.\\-")
+fun leerTemario(anio:String): ArrayList<Bloque>{
+    var pdfTemario=Thread.currentThread().contextClassLoader.getResource("Temario${anio}.pdf").path
+    return estructuraElTemario(obtenerCadenaPdf(pdfTemario,0));
+}
 
 fun estructuraElTemario(cadena: String): ArrayList<Bloque> {
     val valdev = ArrayList<Bloque>()
