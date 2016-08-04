@@ -1,4 +1,0 @@
-spring:
-  resources:
-    staticLocations: classpath:/static
-    #staticLocations: classpath:/cliente/src,classpath:/cliente/node_modules,classpath:/cliente/dist
