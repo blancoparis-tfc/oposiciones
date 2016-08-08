@@ -23,7 +23,7 @@ fun buscarTest(anio:String){
     //println("${solucion}")
     val preguntas = obtenerTestAnio(anio);
     preguntas.forEach { println("${it.numero}- ${it.enunciado}")
-        it.opciones.forEach { println("    ${it.apartado}) [${it.correcta}] ${it.solucion}") }
+        it.opciones!!.forEach { println("    ${it.apartado}) [${it.correcta}] ${it.solucion}") }
     }
 }
 

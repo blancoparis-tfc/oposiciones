@@ -1,13 +1,20 @@
 package aplication.componentes.pdf
 
+import aplication.dao.Apartado
+import aplication.dao.Pregunta
 import org.springframework.util.StringUtils
 import java.util.*
 
 /**
  * Created by davidTorre on 22/07/2016.
  */
-data class Pregunta(var bloque:String="",var numero:Number=-1,var enunciado:String="",var anulada:Boolean=false,var opciones:ArrayList<Opciones>)
-data class Opciones(val apartado:String="",var solucion:String="",var correcta:Boolean=false)
+data class PreguntaDto(var id:Long,var bloque:String="", var numero:Long=-1L, var enunciado:String="", var anulada:Boolean=false, var opciones:ArrayList<Opciones>?=null){
+    constructor() : this(-1,"",-1L,"",false,null) {
+    }
+    constructor(numero:Long,enuncionado:String,anulada:Boolean):this(-1,"",numero,enuncionado,anulada,null)
+    constructor(pregunta: Pregunta):this(-1,"Pendiente",pregunta.numero,pregunta.enunciado,pregunta.anulado,null)
+}
+data class Opciones(val id:Long=-1,val apartado:String="",var solucion:String="",var correcta:Boolean=false)
 private enum class EstadoLectura{
     NADA,BLOQUE,PREGUNTA,APARTADO,APARTADO_FIN
 }
@@ -24,20 +31,20 @@ var patronPagina=Regex("^1 [–-] TEST \\d+ [–-] GSI [LP][I]?\\s+Página \\d+ 
 var patronRespuesta=Regex("\\d+\\.\\s+\\w+")
 var patronSolucion=Regex("\\. [ABCD]");
 
-fun obtenerTestAnio(anio:String): List<Pregunta>{
+fun obtenerTestAnio(anio:String): List<PreguntaDto>{
     var pdfTest=Thread.currentThread().contextClassLoader.getResource("${anio}Test.pdf").path
     val pdfTestSolucion=Thread.currentThread().contextClassLoader.getResource("${anio}TestSolucion.pdf").path
     return obtenerTest(pdfTest,pdfTestSolucion)
 }
 
- fun obtenerTest(pdfTest: String, pdfTestSolucion: String): List<Pregunta> {
+ fun obtenerTest(pdfTest: String, pdfTestSolucion: String): List<PreguntaDto> {
     val preguntas = soluciones(obtenerCadenaPdf(pdfTestSolucion, 0), cuestionario(obtenerCadenaPdf(pdfTest, 1)));
     return preguntas
 }
 
-fun soluciones(cadena:String,preguntas:List<Pregunta>):List<Pregunta>{
+fun soluciones(cadena:String,preguntas:List<PreguntaDto>):List<PreguntaDto>{
     var columna1=ArrayList<String>();
-    var columna2=ArrayList<String>();
+    val columna2=ArrayList<String>();
     var columna3=ArrayList<String>();
 
     val soluciones=organizarSoluciones(cadena)
@@ -86,14 +93,14 @@ fun soluciones(cadena:String,preguntas:List<Pregunta>):List<Pregunta>{
     return preguntas.filter { !it.bloque.isBlank() };
 }
 
-private fun vincularSoluciones(bloque1: List<Pregunta>, columna1: ArrayList<String>) {
+private fun vincularSoluciones(bloque1: List<PreguntaDto>, columna1: ArrayList<String>) {
 
     var i1 = 0;
     while (i1 < bloque1.size) {
         var opcion = patronSolucion.find(columna1.get(i1))?.value
         if (opcion != null) {
             opcion=opcion.replace(".","").trim().toLowerCase();
-            bloque1.get(i1).opciones.filter { it.apartado.equals(opcion) }.forEach { it.correcta = true }
+            bloque1.get(i1).opciones!!.filter { it.apartado.equals(opcion) }.forEach { it.correcta = true }
         } else {
             bloque1.get(i1).anulada = true;
         }
@@ -132,13 +139,13 @@ private fun organizarSoluciones(cadena: String):ArrayList<String> {
     return soluciones;
 }
 
-fun cuestionario(cadena:String):List<Pregunta>{
-    val valdev=ArrayList<Pregunta>()
+fun cuestionario(cadena:String):List<PreguntaDto>{
+    val valdev=ArrayList<PreguntaDto>()
     val lineas = cadena.lines().filter { !it.isBlank() }
             .map{ it.replace(patronPagina,"").trim()+" "}
             //.filter { !patronPagina.containsMatchIn(it) }
             .toList()
-    var pregunta=Pregunta("",-1,"",false,ArrayList<Opciones>())
+    var pregunta= PreguntaDto(-1,"",-1,"",false,ArrayList<Opciones>())
     var opcion=Opciones()
     var estado=EstadoLectura.NADA
     var bloque = ""
@@ -151,22 +158,22 @@ fun cuestionario(cadena:String):List<Pregunta>{
             estado=EstadoLectura.PREGUNTA;
         }else if(patronApartado.containsMatchIn(linea)){
             if(estado.equals(EstadoLectura.APARTADO)){
-                pregunta.opciones.add(opcion);
+                pregunta.opciones!!.add(opcion);
             }
             if(patronSubApartado.containsMatchIn(linea)){
                 var apartados=linea.split(patronSubApartado)
                 for(apartado in apartados){
-                    if(estado.equals(EstadoLectura.APARTADO) && (pregunta.opciones.isEmpty() || pregunta.opciones.last().solucion!=opcion.solucion)) {
-                        pregunta.opciones.add(opcion);
+                    if(estado.equals(EstadoLectura.APARTADO) && (pregunta.opciones!!.isEmpty() || pregunta.opciones!!.last().solucion!=opcion.solucion)) {
+                        pregunta.opciones!!.add(opcion);
 
                     }
-                    opcion=Opciones("",apartado.replace(patronApartado,""))
+                    opcion=Opciones(-1,"",apartado.replace(patronApartado,""))
                     estado=EstadoLectura.APARTADO
                 }
 
             }else{
                 estado=EstadoLectura.APARTADO
-                opcion=Opciones("",linea.replace(patronApartado,""));
+                opcion=Opciones(-1,"",linea.replace(patronApartado,""));
             }
         }else{
             when(estado){
@@ -183,17 +190,17 @@ fun cuestionario(cadena:String):List<Pregunta>{
     return valdev;
 }
 
-private fun establecerPregunta(bloque: String, estado: EstadoLectura, linea: String, opcion: Opciones, pregunta: Pregunta, valdev: ArrayList<Pregunta>): Pregunta {
+private fun establecerPregunta(bloque: String, estado: EstadoLectura, linea: String, opcion: Opciones, pregunta: PreguntaDto, valdev: ArrayList<PreguntaDto>): PreguntaDto {
     var pregunta1 = pregunta
     if (!estado.equals(EstadoLectura.NADA)) {
         if (estado.equals(EstadoLectura.APARTADO)) {
-            pregunta1.opciones.add(opcion);
+            pregunta1.opciones!!.add(opcion);
         }
-        pregunta1.opciones = pregunta1.opciones.mapIndexed { i, opciones -> Opciones(Apartados.values().get(i).name, opciones.solucion) }.toCollection(ArrayList<Opciones>());
+        pregunta1.opciones = pregunta1.opciones!!.mapIndexed { i, opciones -> Opciones(-1,Apartados.values().get(i).name, opciones.solucion) }.toCollection(ArrayList<Opciones>());
         valdev.add(pregunta1);
     }
     if(!linea.isBlank()){
-    pregunta1 = Pregunta(bloque, (patronPregunta.find(linea)?.value ?: "").replace(".", "").trim().toInt(), linea.replace(patronPregunta, ""),false, ArrayList<Opciones>());
+    pregunta1 = PreguntaDto(-1,bloque, (patronPregunta.find(linea)?.value ?: "").replace(".", "").trim().toLong(), linea.replace(patronPregunta, ""),false, ArrayList<Opciones>());
     }
     return pregunta1
 }
