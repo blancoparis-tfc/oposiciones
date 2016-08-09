@@ -6,7 +6,7 @@ import {Bloque} from './temario/temario'
 
 @Injectable()
 export class OposicionesService {
-  private  testUrl='http://192.168.1.45:8080/test?anio=2014';
+  private  testUrl='http://192.168.1.45:8080/test';
 
   private cuestionarioUrlMock='temario2016.json';
 
@@ -27,7 +27,9 @@ export class OposicionesService {
   }
 
   public getTest(anio:string):Observable<Pregunta[]>{
-  return this.http.get('preguntas'+anio+'.json')
+  let params = new URLSearchParams();
+  params.set('anio',anio)
+  return this.http.get(this.testUrl,{search:params})
                     .map(this.extractData)
                     .catch(this.handleError);
   }

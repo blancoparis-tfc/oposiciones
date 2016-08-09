@@ -32,6 +32,7 @@ dependencies {
 
     compile 'mysql:mysql-connector-java:5.1.39'
     //compile 'org.hsqldb:hsqldb:2.3.4'
+    compile 'com.atlassian.commonmark:commonmark:0.6.0'
 
 
 
