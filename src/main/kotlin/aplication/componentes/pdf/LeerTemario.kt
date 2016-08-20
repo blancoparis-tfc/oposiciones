@@ -6,21 +6,21 @@ import java.util.*
  * Created by davidTorre on 22/07/2016.
  */
 
-data class Bloque(val bloque:String,val temas:List<Temario>)
+data class BloqueDto(val id:Long?=-1,val bloque:String, val temas:List<Temario>)
 data class Temario(var numero:String="",var tema:String="", var apartados:List<String>?= ArrayList());
 
 val patroBloque = Regex("B[lL][oO][Qq][uU][eE][sS]? [IV]+")
 val patronTema = Regex("\\d+\\.\\-")
-fun leerTemario(anio:String): ArrayList<Bloque>{
+fun leerTemario(anio:String): ArrayList<BloqueDto>{
     var pdfTemario=Thread.currentThread().contextClassLoader.getResource("Temario${anio}.pdf").path
     return estructuraElTemario(obtenerCadenaPdf(pdfTemario,0));
 }
 
-fun estructuraElTemario(cadena: String): ArrayList<Bloque> {
-    val valdev = ArrayList<Bloque>()
+fun estructuraElTemario(cadena: String): ArrayList<BloqueDto> {
+    val valdev = ArrayList<BloqueDto>()
     var tema: Temario = Temario();
     var temas = ArrayList<Temario>()
-    var bloque: Bloque? = null
+    var bloque: BloqueDto? = null
     val lineas = cadena.lines().filter { !it.isBlank() }.toList();
     for (it in lineas) {
         if (patroBloque.containsMatchIn(it)) {
@@ -29,7 +29,7 @@ fun estructuraElTemario(cadena: String): ArrayList<Bloque> {
             }
             establecerTema(patronTema, tema, temas)
             temas = ArrayList<Temario>();
-            bloque = Bloque(it, temas);
+            bloque = BloqueDto(null,it, temas);
             tema = Temario()
         } else if (patronTema.containsMatchIn(it)) {
             establecerTema(patronTema, tema, temas)
@@ -45,7 +45,7 @@ fun estructuraElTemario(cadena: String): ArrayList<Bloque> {
     return valdev
 }
 
-fun pintarElTemario(valdev: ArrayList<Bloque>) {
+fun pintarElTemario(valdev: ArrayList<BloqueDto>) {
     valdev.forEach {
         println("${it.bloque}")
         it.temas.forEach {

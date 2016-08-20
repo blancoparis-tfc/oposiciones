@@ -7,7 +7,7 @@ import { TemaComponent } from './tema.component';
 
 describe('Component: Tema', () => {
   it('should create an instance', () => {
-    let component = new TemaComponent(null,null);
+    let component = new TemaComponent(null,null,null);
     expect(component).toBeTruthy();
   });
 });

@@ -2,15 +2,22 @@ import { Injectable } from '@angular/core'
 import {Jsonp,Response,Request,URLSearchParams,Http } from '@angular/http'
 import {Observable} from 'rxjs/Observable'
 import {Pregunta} from './pregunta/pregunta'
-import {Bloque} from './temario/temario'
+import {Bloque,OposicionPlana} from './temario/temario'
 
 @Injectable()
 export class OposicionesService {
   private  testUrl='http://192.168.1.45:8080/test';
 
-  private cuestionarioUrlMock='temario2016.json';
-
+  private cuestionarioUrlMock='temario2016.json'
+  private cuestionarioUrl='http://192.168.1.45:8080/temario'
+  private oposicionPlanaUrl='http://192.168.1.45:8080/oposicion'
   constructor(private http: Http) { }
+
+  public getOposicionPlana(id:number):Observable<OposicionPlana>{
+    return this.http.get(this.oposicionPlanaUrl+"/"+id)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
 
   public getTema(bloqueId:string,numeroTema:string){
     return this.http.get(this.cuestionarioUrlMock)
@@ -21,7 +28,9 @@ export class OposicionesService {
   }
 
   public getTemario(anio:string):Observable<Bloque[]>{
-    return this.http.get(this.cuestionarioUrlMock)
+    let params = new URLSearchParams();
+    params.set('anio',anio)
+    return this.http.get(this.cuestionarioUrl,{search:params})
                     .map(this.extractData)
                     .catch(this.handleError);
   }

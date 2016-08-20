@@ -23,7 +23,7 @@ export class TemarioComponent implements OnInit {
 
   ngOnInit() {
     this.avance=20;
-        this.oposicionesService.getTemario(null).subscribe(data=>{
+        this.oposicionesService.getTemario("2016").subscribe(data=>{
           this.temario=data
           this.temario.length
           this.avance=100

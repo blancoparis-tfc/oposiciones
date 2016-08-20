@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { OposicionesService} from '../oposiciones.service'
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card'
 import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
+import { ROUTER_DIRECTIVES } from '@angular/router';
+
 import {Temario} from '../temario/temario'
 
 @Component({
@@ -11,7 +13,7 @@ import {Temario} from '../temario/temario'
   templateUrl: 'tema.component.html',
   styleUrls: ['tema.component.css'],
   providers:[OposicionesService],
-  directives:[MD_CARD_DIRECTIVES,MD_BUTTON_DIRECTIVES]
+  directives:[MD_CARD_DIRECTIVES,MD_BUTTON_DIRECTIVES,ROUTER_DIRECTIVES]
 })
 export class TemaComponent implements OnInit {
 
@@ -20,7 +22,7 @@ export class TemaComponent implements OnInit {
   private tema:string
   private temario:Temario
 
-  constructor(private route: ActivatedRoute,private oposicionesService:OposicionesService) {
+  constructor(private route: ActivatedRoute,private oposicionesService:OposicionesService, private router:Router) {
     this.temario=new Temario("","",new Array<string>());
   }
 
@@ -33,6 +35,11 @@ export class TemaComponent implements OnInit {
             this.temario=data
           })
         });
+  }
+
+  nuevoDocumento(){
+    console.info('crear nuevo documento');
+    this.router.navigate(['/documento']);
   }
 
 }

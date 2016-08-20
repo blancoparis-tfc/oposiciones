@@ -29,7 +29,7 @@ fun buscarTest(anio:String){
 
 
 
-fun buscarBloques(cadena:String):List<Bloque>{
+fun buscarBloques(cadena:String):List<BloqueDto>{
     var valdev = estructuraElTemario(cadena)
     pintarElTemario(valdev)
     return valdev

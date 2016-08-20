@@ -3,11 +3,13 @@ import {PreguntasOposicionComponent} from './preguntas-oposicion/preguntas-oposi
 import {CuestionarioComponent} from './cuestionario/cuestionario.component'
 import {TemarioComponent} from './temario/temario.component'
 import {TemaComponent} from './tema/tema.component'
+import {DocumentoComponent} from './documento/documento.component'
 const rutas : RouterConfig =[
     {path:'',component:CuestionarioComponent},
     {path:'preguntas/:id',component:PreguntasOposicionComponent},
-    {path:'temario',component:TemarioComponent},
-    {path:'tema/:bloque/:tema',component:TemaComponent}
+    {path:'temario/:id',component:TemarioComponent},
+    {path:'tema/:bloque/:tema',component:TemaComponent},
+    {path:'documento',component:DocumentoComponent}
 ];
 
 export const appRouterProviders = [

@@ -11,25 +11,18 @@ import javax.persistence.*
  */
 @Entity
 data class Test(
-        @Id @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO)
-        var id: Long?=null,
+        @Id @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO) var id: Long?=null,
         var periodo:String="",
-        //@ManyToOne
-        //var oposicion:Oposicion?=null,
         @OneToMany(cascade = arrayOf(javax.persistence.CascadeType.ALL))
         var preguntas:List<Pregunta>?=null
 )
-interface TestDao: CrudRepository<Test,Long>
+//interface TestDao: CrudRepository<Test,Long>
 @Entity
 data class Pregunta(
-        @Id @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO)
-        var id: Long?=null,
+        @Id @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO) var id: Long?=null,
         var numero: Long=0,
         @Column(name="enunciado",length=2059)
-        var enunciado: String="",
-        var anulado: Boolean=false,
-       // @ManyToOne
-      //  var test:Test?=null,
+        var enunciado: String="",var anulado: Boolean=false,
         @OneToMany(cascade = kotlin.arrayOf(javax.persistence.CascadeType.ALL))
         var apartados:List<Apartado>?=null
 )
@@ -47,16 +40,10 @@ interface PreguntaDao: CrudRepository<Pregunta,Long>{
 }
 @Entity
 data class Apartado(
-        @Id @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO)
-        var id: Long?=null,
+        @Id @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO)   var id: Long?=null,
         var apartado:String="",
         @Column(name="solucion",length=2059)
-        var solucion:String="",
-        var correcto:Boolean=false
-//        @ManyToOne
-//        var pregunta:Pregunta?=null
-
-
+        var solucion:String="",var correcto:Boolean=false
 )
-interface ApartadoDao: CrudRepository<Apartado,Long>{}
+
 
