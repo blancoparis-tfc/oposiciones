@@ -6,12 +6,12 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 
 
 @Component({
-  moduleId: module.id,
+//  moduleId: module.id,
   selector: 'app-temario',
   templateUrl: 'temario.component.html',
   styleUrls: ['temario.component.css'],
   providers:[OposicionesService],
-  directives:[MD_LIST_DIRECTIVES,ROUTER_DIRECTIVES]
+  directives:[ROUTER_DIRECTIVES,MD_LIST_DIRECTIVES]
 })
 export class TemarioComponent implements OnInit {
 

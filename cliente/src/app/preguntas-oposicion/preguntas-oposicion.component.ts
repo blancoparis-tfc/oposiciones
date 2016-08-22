@@ -3,15 +3,15 @@ import { Router, ActivatedRoute }       from '@angular/router';
 import { PreguntaComponent} from '../pregunta/pregunta.component'
 import { Pregunta,Opcion} from '../pregunta/pregunta'
 import { OposicionesService} from '../oposiciones.service'
-import {MD_ICON_DIRECTIVES,MdIconRegistry,MdIcon} from '@angular2-material/icon'
+//import {MD_ICON_DIRECTIVES,MdIconRegistry,MdIcon} from '@angular2-material/icon'
 import {MD_PROGRESS_BAR_DIRECTIVES} from '@angular2-material/progress-bar'
 @Component({
-  moduleId: module.id,
+  //moduleId: module.id,
   selector: 'app-preguntas-oposicion',
   templateUrl: 'preguntas-oposicion.component.html',
   styleUrls: ['preguntas-oposicion.component.css'],
-  providers:[OposicionesService,MdIconRegistry],
-    directives:[MD_ICON_DIRECTIVES,MD_PROGRESS_BAR_DIRECTIVES,MdIcon,PreguntaComponent]
+  providers:[OposicionesService,MD_PROGRESS_BAR_DIRECTIVES],
+    directives:[PreguntaComponent]
 })
 export class PreguntasOposicionComponent implements OnInit {
 
@@ -23,11 +23,10 @@ export class PreguntasOposicionComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private oposicionesService:OposicionesService,
-    private mdIconRegistry:MdIconRegistry
+    private oposicionesService:OposicionesService
     ) {
 
-     mdIconRegistry.registerFontClassAlias('myfont', 'my-icon-font-class'); 
+     //mdIconRegistry.registerFontClassAlias('myfont', 'my-icon-font-class'); 
      }
 
   ngOnInit() {

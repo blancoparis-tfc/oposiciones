@@ -6,11 +6,11 @@ import {Bloque,OposicionPlana} from './temario/temario'
 
 @Injectable()
 export class OposicionesService {
-  private  testUrl='http://192.168.1.45:8080/test';
+  private  testUrl='http://localhost:8080/test';
 
   private cuestionarioUrlMock='temario2016.json'
-  private cuestionarioUrl='http://192.168.1.45:8080/temario'
-  private oposicionPlanaUrl='http://192.168.1.45:8080/oposicion'
+  private cuestionarioUrl='http://localhost:8080/temario'
+  private oposicionPlanaUrl='http://localhost:8080/oposicion'
   constructor(private http: Http) { }
 
   public getOposicionPlana(id:number):Observable<OposicionPlana>{

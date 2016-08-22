@@ -1,18 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {MdUniqueSelectionDispatcher} from '@angular2-material/core';
-import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
-import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
-import {MD_RADIO_DIRECTIVES} from '@angular2-material/radio';
+//import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
+//import {MD_BUTTON_DIRECTIVES} from '@angular2-material/button';
+//import {MD_RADIO_DIRECTIVES} from '@angular2-material/radio';
 import {Opcion,Pregunta} from './pregunta';
 
 
 @Component({
-  moduleId: module.id,
+//  moduleId: module.id,
   selector: 'app-pregunta',
   templateUrl: 'pregunta.component.html',
   styleUrls: ['pregunta.component.css'],
     providers:[MdUniqueSelectionDispatcher],
-  directives:[MD_BUTTON_DIRECTIVES,MD_CARD_DIRECTIVES,MD_RADIO_DIRECTIVES,PreguntaComponent]
+  directives:[PreguntaComponent]
 })
 export class PreguntaComponent implements OnInit {
   

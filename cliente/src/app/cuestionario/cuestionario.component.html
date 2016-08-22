@@ -1,7 +1,14 @@
 <md-list>
    <h3 md-subheader>Temario</h3>
-   <md-list-item *ngFor="let anio of oposicionPlana.plan"> <a [routerLink]="['/temario',anio]">Plan del {{anio}}</a> </md-list-item>
+   <md-list-item *ngFor="let anio of oposicionPlana.plan">
+        
+       <a [routerLink]="['/temario',anio]">Plan del {{anio}}</a>
+        
+       
+    </md-list-item>
    <md-divider></md-divider>
    <h3 md-subheader>Cuestionario</h3>
-   <md-list-item *ngFor="let anio of oposicionPlana.test"> <a  [routerLink]="['/preguntas',anio]" > Cuestionario del {{anio}}</a> </md-list-item>
+   <md-list-item *ngFor="let anio of oposicionPlana.test">
+       <a  [routerLink]="['/preguntas',anio]" > Cuestionario del {{anio}}</a>
+  </md-list-item>
 </md-list>

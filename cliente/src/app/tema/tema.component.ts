@@ -8,12 +8,12 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import {Temario} from '../temario/temario'
 
 @Component({
-  moduleId: module.id,
+//  moduleId: module.id,
   selector: 'app-tema',
   templateUrl: 'tema.component.html',
   styleUrls: ['tema.component.css'],
   providers:[OposicionesService],
-  directives:[MD_CARD_DIRECTIVES,MD_BUTTON_DIRECTIVES,ROUTER_DIRECTIVES]
+  directives:[ROUTER_DIRECTIVES,MD_CARD_DIRECTIVES,MD_BUTTON_DIRECTIVES]
 })
 export class TemaComponent implements OnInit {
 
